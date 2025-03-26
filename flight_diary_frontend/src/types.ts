@@ -6,3 +6,5 @@ export interface DiaryEntry {
     comment: string;
 }
 
+export type NewDiaryEntry = Omit<DiaryEntry, 'id'>;
+
