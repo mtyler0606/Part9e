@@ -4,17 +4,19 @@ import { DiaryEntry } from './types';
 const baseURL = "http://localhost:3000/api/diaries";
 
 export const createEntry = (object: DiaryEntry) => {
-    /*
-    const newObj = {
-        date: object.date,
-        weather: object.weather,
-        visibility: object.visibility,
-        comment: object.comment
-    }
-        */
-    return axios
+
+        return axios
         .post<DiaryEntry>(baseURL, object)
         .then(response => response.data)
+        .catch (error => {
+        if(axios.isAxiosError(error)){
+            console.log("Error status:", error.status);
+            console.error(error.response);
+        }
+        else {
+            console.error(error);
+        }
+    })
 }
 
 export const getAllEntries = () => {

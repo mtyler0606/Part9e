@@ -41,24 +41,46 @@ function App() {
 
   const addDiary = () => {
     const id = Math.max(...diaryEntries.map(entry => entry.id)) + 1;
-    createEntry({id: id, date: date, visibility: visibility, weather: weather, comment: comment}).then(data => {setDiaryEntries(diaryEntries.concat(data))})
+    createEntry({id: id, date: date, visibility: visibility, weather: weather, comment: comment}).then(data => {setDiaryEntries(diaryEntries.concat(data as DiaryEntry))})
     setDate("");
     setVisibility("");
     setWeather("");
     setComment("");
   }
   
+  const handleVisiblity = (value: string) => setVisibility(value);
+  const handleWeather = (value: string) => setWeather(value);
+  //visibility = great good ok poor
+  //weather = sunny rainy cloudy stormy windy
   return (
     <>
     <h2>Add new entry</h2>
     <form >
-      <label>Date</label>
-      <input type="text" onChange={(event) => setDate(event.target.value)} />
-      <label>Visibility</label>
-      <input type="text" onChange={(event) => setVisibility(event.target.value)} />
-      <br />
-      <label>Weather</label>
-      <input type="text" onChange={(event) => setWeather(event.target.value)} />
+      <label htmlFor="date">Date</label>
+      <input type="date" id="date" onChange={(event) => setDate(event.target.value)} />
+      
+      <div>
+        <legend>Visibility</legend>
+        <label htmlFor="great">great</label>
+        <input type="radio" id="great" value="great" checked={visibility === "great"} onChange={() => handleVisiblity("great")}/>
+        <label htmlFor="good">good</label>
+        <input type="radio" id="good" value="good" checked={visibility === "good"} onChange={() => handleVisiblity("good")}/>
+        <label htmlFor="ok">ok</label>
+        <input type="radio" id="ok" value="ok" checked={visibility === "ok"} onChange={() => handleVisiblity("ok")}/>
+        <label htmlFor="poor">poor</label>
+        <input type="radio" id="poor" value="poor" checked={visibility === "poor"} onChange={() => handleVisiblity("poor")}/>
+      </div>
+      <div>
+        <legend>Weather</legend>
+        <label htmlFor="sunny">sunny</label>
+        <input type="radio" id="sunny" value="sunny" checked={weather === "sunny"} onChange={() => handleWeather("sunny")}/>
+        <label htmlFor="rainy">rainy</label>
+        <input type="radio" id="rainy" value="rainy" checked={weather === "rainy"} onChange={() => handleWeather("rainy")}/>
+        <label htmlFor="cloudy">cloudy</label>
+        <input type="radio" id="ok" value="cloudy" checked={weather === "cloudy"} onChange={() => handleWeather("cloudy")}/>
+        <label htmlFor="windy">windy</label>
+        <input type="radio" id="windy" value="poor" checked={weather === "windy"} onChange={() => handleWeather("windy")}/>
+      </div>
       <label>Comment</label>
       <input type="text" onChange={(event) => setComment(event.target.value)} />
       <br />
